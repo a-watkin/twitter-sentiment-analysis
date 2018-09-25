@@ -17,3 +17,4 @@ requests-oauthlib==0.8.0
 six==1.11.0
 urllib3==1.22
 vaderSentiment==3.2.1
+yweather==0.1.1
