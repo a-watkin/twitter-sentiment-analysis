@@ -1,7 +1,6 @@
 import twitter
 
-
-from credentials import twitterConfig
+from credentials import twitter_config
 
 
 class Tweets:
@@ -9,10 +8,10 @@ class Tweets:
     def __init__(self):
 
         self.twitter_api = twitter.Api(
-            consumer_key=twitterConfig['consumer_key'],
-            consumer_secret=twitterConfig['consumer_secret'],
-            access_token_key=twitterConfig['token'],
-            access_token_secret=twitterConfig['token_secret'],
+            consumer_key=twitter_config['consumer_key'],
+            consumer_secret=twitter_config['consumer_secret'],
+            access_token_key=twitter_config['token'],
+            access_token_secret=twitter_config['token_secret'],
             tweet_mode='extended',
             sleep_on_rate_limit=True
         )
@@ -56,7 +55,7 @@ class Tweets:
 
         # sets up the data values used to get tweets later
         for trend in trending_tweets:
-            data[trend['name']] = []
+            self.data[trend['name']] = []
 
         print(trending_tweets)
 
@@ -65,6 +64,7 @@ class Tweets:
 def main():
     t = Tweets()
     t.get_trending()
+    print(t.data)
 
 
 if __name__ == '__main__':
