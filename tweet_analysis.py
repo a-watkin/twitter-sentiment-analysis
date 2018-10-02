@@ -1,4 +1,7 @@
 import twitter
+from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
+
+import pandas as pd
 
 from credentials import twitter_config
 
@@ -60,12 +63,65 @@ class Tweets:
         print(trending_tweets)
 
 
+    def get_tweets(self):
+
+        for tweet_subject in self.data.keys():
+            print(tweet_subject)
+
+
+
+            query = self.twitter_api.GetSearch(
+                tweet_subject,
+                count=100,
+                lang='en',
+                result_type="recent",
+                include_entities=False
+            )
+
+            analyser = SentimentIntensityAnalyzer()
+
+            for tweet in query:
+                if tweet.id in self.data[tweet_subject]:
+                    break
+
+                else:
+                    self.data[tweet_subject].append(tweet.id)
+                    tweet_data = []
+
+                    vs = analyser.polarity_scores(tweet.full_text)
+
+                    # used as a key for checking against the file
+                    tweet_data.append(tweet.id)
+                    tweet_data.append(tweet_subject)
+
+                    # text of the tweet object
+                    tweet_data.append(tweet.full_text)
+
+                    # csv module requires list items to be a string
+                    tweet_data.append(str(vs['neg']))
+                    tweet_data.append(str(vs['neu']))
+                    tweet_data.append(str(vs['pos']))
+                    tweet_data.append(str(vs['compound']))
+
+                    try:
+                        self.data[tweet_subject].append(tweet_data)
+
+                    except Exception as e:
+                        print(e, self.data.keys())
+
+
+
 
 def main():
     t = Tweets()
     t.get_trending()
+    print(type(t.data))
     print(t.data)
 
+    t.get_tweets()
+
+    print(t.data)
+    
 
 if __name__ == '__main__':
     main()
