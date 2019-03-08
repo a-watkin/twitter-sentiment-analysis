@@ -20,7 +20,7 @@ class Tweets:
         )
 
         # Define the location id for the UK
-        self.WOEID = 23424975 
+        self.WOEID = 23424975
 
         # Define language of tweets
         self.LANG = "en"
@@ -28,13 +28,11 @@ class Tweets:
         # Define type of tweets we are after
         self.TWEETS_TYPE = "recent"
 
-        # Save tweet subjects for later 
+        # Save tweet subjects for later
         self.data = {}
-
 
     def test(self):
         print(self.LANG)
-
 
     def get_trending(self):
         """
@@ -62,13 +60,10 @@ class Tweets:
 
         print(trending_tweets)
 
-
     def get_tweets(self):
 
         for tweet_subject in self.data.keys():
             print(tweet_subject)
-
-
 
             query = self.twitter_api.GetSearch(
                 tweet_subject,
@@ -109,32 +104,30 @@ class Tweets:
                     except Exception as e:
                         print(e, self.data.keys())
 
+    # def exp(self):
 
-    def exp(self):
+    #     query = self.twitter_api.GetSearch(
+    #         count=10,
+    #         lang='en',
+    #         result_type="recent",
+    #         include_entities=False
+    #     )
 
-        query = self.twitter_api.GetSearch(
-            count=10,
-            lang='en',
-            result_type="recent",
-            include_entities=False,
-            locations="Toronto"
-        )
-
-        print(query)
+    #     print(query)
 
 
 def main():
     t = Tweets()
     t.get_trending()
-    print(type(t.data))
-    print(t.data)
-
-    # t.get_tweets()
-
+    # print(type(t.data))
     # print(t.data)
 
-    t.exp()
-    
+    t.get_tweets()
+
+    print(t.data)
+
+    # t.exp()
+
 
 if __name__ == '__main__':
     main()
