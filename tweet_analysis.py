@@ -110,6 +110,17 @@ class Tweets:
                         print(e, self.data.keys())
 
 
+    def exp(self):
+
+        query = self.twitter_api.GetSearch(
+            count=10,
+            lang='en',
+            result_type="recent",
+            include_entities=False,
+            locations="Toronto"
+        )
+
+        print(query)
 
 
 def main():
@@ -118,9 +129,11 @@ def main():
     print(type(t.data))
     print(t.data)
 
-    t.get_tweets()
+    # t.get_tweets()
 
-    print(t.data)
+    # print(t.data)
+
+    t.exp()
     
 
 if __name__ == '__main__':
