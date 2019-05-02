@@ -112,3 +112,7 @@ dmypy.json
 
 # API secrets
 credentials.py
+
+
+# config file
+twitter_config.py
